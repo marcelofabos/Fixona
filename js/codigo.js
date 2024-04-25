@@ -13,6 +13,8 @@ $(function () {
         location.href = "mostrar_categoria.php?id_cate=" + id_cate;
     })
 
+
+
     $(".reg_producto .btn_editar").click(function (e) {
         let codprod = $(this).closest(".reg_producto").children(".codprod").text();
         location.href = "editar_producto.php?codprod=" + codprod;
@@ -27,6 +29,8 @@ $(function () {
         let id_cate = $(this).closest(".reg_categoria").children(".id_cate").text();
         location.href = "editar_categoria.php?id_cate=" + id_cate;
     });
+
+    
 
     $(".reg_producto .btn_borrar").click(function (e) {
 

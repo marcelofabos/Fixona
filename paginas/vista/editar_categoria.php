@@ -23,12 +23,12 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
 
 
     } else {
-        header("location: listar_producto.php");
+        header("location: listar_categoria.php");
     }
     ?>
     <div class="container mt-3">
         <header>
-            <h1 class="text-success"><i class="fas fa-pen-square"></i> Editar Producto</h1>
+            <h1 class="text-success"><i class="fas fa-pen-square"></i> Editar Categoria </h1>
             <hr />
         </header>
 
@@ -50,30 +50,23 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
 
                                     <div class="row g-3">
                                         <div class="col-md-4">
-                                            <label for="txt_cate" class="form-label">Id</label>
+                                            <label for="txt_id_cate" class="form-label">Id</label>
                                             <input type="text" class="form-control" id="txt_id_cate" name="txt_id_cate"
-                                                placeholder="Id" maxlength="5" readonly
+                                                placeholder="Id" maxlength="5"
                                                 value="<?= $rs_cate->id_categoria ?>">
                                         </div>
 
-                                        <div class="col-md-6">
-                                                <label for="cbo_cat" class="form-label">Categoria</label>
-                                                <select class="form-select form-select-lg mb-3" id="cbo_cat" name="cbo_cat">
-                                                    <option value="">[Seleccione categoria]</option>
-                                                <?php
-                                                    foreach($rs_cate as $cate){
-                                                ?>
-                                                    <option value="<?=$cate->nombre_categoria?>"></option>
-                                                <?php
-                                                    }
-                                                ?>
-                                                </select>
-                                            </div>
+                                        <div class="col-md-4">
+                                            <label for="txt_categoria" class="form-label">Categoria</label>
+                                            <input type="text" class="form-control" id="txt_categoria" name="txt_categoria"
+                                                placeholder="Categoria" maxlength="50"
+                                                value="<?= $rs_cate->nombre_categoria ?>">
+                                        </div>
 
 
                                         <div class="text-center">
                                             <button type="submit" class="btn btn-outline-primary"
-                                                id="btn_registrar_prod" name="btn_registrar_prod">
+                                                id="btn_registrar_cate" name="btn_registrar_cate">
                                                 <i class="fas fa-save"></i> Actualizar Informacion
                                             </button>
                                         </div>

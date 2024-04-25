@@ -59,5 +59,43 @@ class CRUDCategoria extends Conexion
             die($ex->getMessage());
         }
     }
+
+    //Registrar Categoria
+    public function RegistrarCategoria(Categoria $categoria)
+    {
+        try {
+            $cn = $this->Conectar();
+
+            $sql = "call sp_RegistrarCategoria(:id_cate, :cate)";
+            $snt = $cn->prepare($sql);
+
+            $snt->bindParam(":id_cate", $categoria->id_cate);
+            $snt->bindParam(":cate", $categoria->categoria);
+
+            $snt->execute();
+
+            $cn = null;
+        } catch (PDOException $ex) {
+            die($ex->getMessage());
+        }
+    }
+
+    //Editar Categoria
+    public function EditarCategoria(Categoria $categoria)
+    {
+        try {
+            $cn = $this->Conectar();
+            $sql = "call sp_EditarCategoria(:id_cate, :cate)";
+            $snt = $cn->prepare($sql);
+
+            $snt->bindParam(":id_cate", $categoria->id_cate);
+            $snt->bindParam(":cate", $categoria->categoria);
+
+            $snt->execute();
+            $cn = null;
+        } catch (PDOException $ex) {
+            die($ex->getMessage());
+        }
+    }
     
 }
