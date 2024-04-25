@@ -2,7 +2,7 @@
 <html lang="es">
 <?php
 $ruta = "../..";
-$titulo = "Aplicación de Ventas - Filtrar Productos";
+$titulo = "Filtrar Categorias";
 include("../includes/cabecera.php");
 ?>
 
@@ -15,7 +15,7 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
     ?>
     <div class="container mt-3">
         <header>
-            <h1><i class="fas fa-search"></i> Filtrar Productos</h1>
+            <h1><i class="fas fa-search"></i> Filtrar Categorias</h1>
             <hr />
         </header>
 

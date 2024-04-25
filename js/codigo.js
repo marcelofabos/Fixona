@@ -145,8 +145,69 @@ $(function () {
 
         });
     });
+    
+    $(document).ready(function () {
+        $("#frm_consultar_cate #txt_id_cate").focusout(function (e) {
+
+            e.preventDefault();
+            // Capturar el valor ingresado en el cuadro de texto
+            let id_cate = $(this).val();
+
+            if (id_cate != "") {
+                // Implementar la consulta por medio de AJAX para JQuery 
+                $.ajax({
+                    url: "../controlador/ctr_consultar_cate.php",
+                    type: "POST",
+                    data: { id_cate: id_cate },
+                    success: function (rpta) {
+                        let rp = JSON.parse(rpta);
+
+                        if (rp) {
+                            $(".id_cate").html(rp.id_categoria);
+                            $(".cate").html(rp.nombre_categoria);
 
 
+
+                        } else {
+
+                            $('#md_consulta_error .modal-header').addClass('bg-gradient')
+                            $("#md_consulta_error .modal-body").html('<p>El codigo <b>' + id_cate + '</b> no existe</p>');
+                            $("#md_consulta_error").modal('show');
+
+                            $("#txt_id_lib").val("");
+
+                            let vacio = "&nbsp;";
+
+                            $(".id_libro").html(vacio);
+                            $(".cate").html(vacio);
+                        }
+                    }
+                });
+            }
+
+        });
+    });
+
+    $(document).ready(function () {
+        $("#frm_filtrar_cate").submit(function (e) {
+            e.preventDefault();
+    
+            var valor = $("#txt_valor").val();
+    
+            if (valor != "") {
+                $.post("../controlador/ctr_filtrar_cate.php",
+                { valor: valor },
+                function (rpta) {
+                        // Mostrar los resultados en el modal
+                    $("#result_filtra").html(rpta);
+                    $("#modalResultados").modal('show');
+                });
+            } else {
+                alert("?");
+                $("#txt_valor").focus();
+            }
+        });
+    });
 
 
 
