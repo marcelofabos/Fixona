@@ -73,7 +73,78 @@ $(function () {
 
     });
 
+    $(document).ready(function () {
+        $("#frm_filtrar_lib").submit(function (e) {
+            e.preventDefault();
+    
+            var valor = $("#txt_valor").val();
+    
+            if (valor != "") {
+                $.post("../controlador/ctr_filtrar_lib.php",
+                { valor: valor },
+                function (rpta) {
+                        // Mostrar los resultados en el modal
+                    $("#result_filtra").html(rpta);
+                    $("#modalResultados").modal('show');
+                });
+            } else {
+                alert("?");
+                $("#txt_valor").focus();
+            }
+        });
+    });
+    $(document).ready(function () {
+        $("#frm_consultar_lib #txt_id_lib").focusout(function (e) {
 
+            e.preventDefault();
+            // Capturar el valor ingresado en el cuadro de texto
+            let id_lib = $(this).val();
+
+            if (id_lib != "") {
+                // Implementar la consulta por medio de AJAX para JQuery 
+                $.ajax({
+                    url: "../controlador/ctr_consultar_lib.php",
+                    type: "POST",
+                    data: { id_lib: id_lib },
+                    success: function (rpta) {
+                        let rp = JSON.parse(rpta);
+
+                        if (rp) {
+                            $(".id_libro").html(rp.id_libro);
+                            $(".titulo").html(rp.titulo);
+                            $(".autor").html(rp.autor);
+                            $(".nacionalidad").html(rp.nacionalidad);
+                            $(".editorial").html(rp.editorial);
+                            $(".categoria").html(rp.categoria);
+                            $(".precio").html("S/. " + rp.precio);
+
+
+                        } else {
+
+                            $('#md_consulta_error .modal-header').addClass('bg-gradient')
+                            $("#md_consulta_error .modal-body").html('<p>El codigo <b>' + id_lib + '</b> no existe</p>');
+                            $("#md_consulta_error").modal('show');
+
+                            $("#txt_id_lib").val("");
+
+                            let vacio = "&nbsp;";
+
+                            $(".id_libro").html(vacio);
+                            $(".titulo").html(vacio);
+                            $(".autor").html(vacio);
+                            $(".nacionalidad").html(vacio);
+                            $(".editorial").html(vacio);
+                            $(".categoria").html(vacio);
+                            $(".precio").html(vacio);
+
+                            $("#txt_id_lib").focus();
+                        }
+                    }
+                });
+            }
+
+        });
+    });
 
 
 

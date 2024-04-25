@@ -141,6 +141,7 @@ DELIMITER ;
 
 CALL SP_ListarLibro();
 
+
 -- Mostrar Libro por ID
 DELIMITER $$
 CREATE PROCEDURE SP_MostrarLibro(IN id_lib CHAR(5))
@@ -154,8 +155,7 @@ BEGIN
 END $$
 DELIMITER ;
 
-CALL SP_MostrarLibro('L0002');
-
+CALL SP_MostrarLibro('L0001');
 
 -- Registrar un nuevo Libro
 DELIMITER $$
@@ -166,7 +166,7 @@ BEGIN
 END $$
 DELIMITER ;
 
-CALL SP_RegistrarLibro('Esta Bien', 'A0002', 'E0003', 'C0001', 29.99, 'L0001');
+CALL SP_RegistrarLibro('Xess', 'A0002', 'E0001', 'C0002', 29.99, 'L0003');
 
 -- Borrar un Libro
 DELIMITER $$
@@ -175,7 +175,7 @@ BEGIN
     DELETE FROM Libros WHERE id_libro = id_lib;
 END $$
 DELIMITER ;
-CALL SP_BorrarLibro('L0004');
+CALL SP_BorrarLibro('L0003');
 
 -- Buscar Libro
 DELIMITER $$
@@ -189,7 +189,59 @@ BEGIN
     WHERE l.id_libro = id_lib;
 END $$
 DELIMITER ;
-CALL SP_BuscarLibro('L0002');
+CALL SP_BuscarLibro('L0001');
+
+-- Editar Libro
+
+DELIMITER $$
+CREATE PROCEDURE SP_EditarLibro(
+    IN id_lib CHAR(5),
+    IN nuevo_titulo VARCHAR(100),
+    IN nuevo_autor CHAR(5),
+    IN nueva_editorial CHAR(5),
+    IN nueva_categoria CHAR(5),
+    IN nuevo_precio DECIMAL(10, 2)
+)
+BEGIN
+    UPDATE Libros
+    SET titulo = nuevo_titulo,
+        autor = nuevo_autor,
+        editorial = nueva_editorial,
+        categoria = nueva_categoria,
+        precio = nuevo_precio
+    WHERE id_libro = id_lib;
+END $$
+DELIMITER ;
+
+CALL SP_EditarLibro('L0001', 'Nuevo título', 'A0003', 'E0001', 'C0002', 24.99);
+
+-- Filtrar Libro
+
+DELIMITER $$
+CREATE PROCEDURE SP_FiltrarLibro(IN nombre_filtro VARCHAR(100))
+BEGIN
+    SELECT 
+        l.id_libro, 
+        l.titulo, 
+        CONCAT(a.nombre, ' ', a.apellido) AS autor,
+        a.nacionalidad,
+        e.nombre AS editorial,
+        c.nombre_categoria AS categoria,
+        l.precio
+    FROM 
+        Libros l
+    INNER JOIN 
+        Autores a ON l.autor = a.id_autor
+    INNER JOIN 
+        Editoriales e ON l.editorial = e.id_editorial
+    INNER JOIN 
+        Categorias c ON l.categoria = c.id_categoria
+    WHERE 
+        l.titulo LIKE CONCAT('%', nombre_filtro, '%');
+END$$
+DELIMITER ;
+
+CALL SP_FiltrarLibro('s');
 
 -- LIBRO--------------------------------------------------
 

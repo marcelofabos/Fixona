@@ -29,7 +29,7 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
             <article>
                 <div class="row justify-content-center mt-3">
                     <div class="col-md-5">
-                        <form id="frm_filtrar_prod" name="frm_filtrar_prod" method="post">
+                        <form id="frm_filtrar_cate" name="frm_filtrar_cate" method="post">
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
                                 <input type="text" class="form-control" id="txt_valor" name="txt_valor" maxlength="40" placeholder="Valor a buscar..." autofocus />
