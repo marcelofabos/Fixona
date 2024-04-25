@@ -24,7 +24,7 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
         <div class="container mt-3">
             <header>
                 <h1 class="text-primary">
-                    <i class="fas fa-plus-circle"></i> Registrar Producto</h1>
+                    <i class="fas fa-plus-circle"></i> Registrar Libro</h1>
                 <hr />
             </header>
 

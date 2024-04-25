@@ -28,7 +28,7 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
             <div class="btn-group col-md-5" role="group">
                 <a href="registrar_libro.php" class="btn btn-outline-primary">
                     <i class="fas fa-plus-circle"></i> Registrar
-                </a>
+                </a> 
                 <a href="consultar_libro.php" class="btn btn-outline-primary">
                     <i class="fas fa-search"></i> Consultar
                 </a>
