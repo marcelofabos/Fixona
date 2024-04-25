@@ -21,4 +21,4 @@ if (isset($_POST["btn_registrar_libro"])) {
         //$crudcalibro->EditarCategoria($producto);
     }
     header("location: ../vista/listar_libro.php");
-}
+} 
