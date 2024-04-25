@@ -32,9 +32,9 @@ CREATE TABLE Libros (
   editorial char(5) NOT NULL,
   categoria char(5)  NULL,
   precio DECIMAL(10, 2) NOT NULL,
-  FOREIGN KEY (autor) REFERENCES Autores(id_autor),
-  FOREIGN KEY (editorial) REFERENCES Editoriales(id_editorial),
-  FOREIGN KEY (categoria) REFERENCES Categorias(id_categoria)
+  FOREIGN KEY (autor) REFERENCES Autores(id_autor) ON DELETE CASCADE,
+  FOREIGN KEY (editorial) REFERENCES Editoriales(id_editorial) ON DELETE CASCADE,
+  FOREIGN KEY (categoria) REFERENCES Categorias(id_categoria) ON DELETE CASCADE
 );
 -- Tabla de Ventas
 CREATE TABLE Ventas (
@@ -43,8 +43,10 @@ CREATE TABLE Ventas (
   fecha_venta DATE NOT NULL,
   cantidad_vendida INT NOT NULL,
   total DECIMAL(10, 2) NOT NULL,
-  FOREIGN KEY (id_libro) REFERENCES Libros(id_libro)
+  FOREIGN KEY (id_libro) REFERENCES Libros(id_libro) ON DELETE CASCADE
 );
+
+select * from ventas;
 
 -- Insertar datos de ejemplo en las tablas
 INSERT INTO Autores (id_autor, nombre, apellido, nacionalidad) VALUES
@@ -185,7 +187,7 @@ CALL SP_MostrarLibro('L0001');
 
 -- Registrar un nuevo Libro
 DELIMITER $$
-CREATE PROCEDURE SP_RegistrarLibro(IN titulo VARCHAR(100), IN autor CHAR(5), IN editorial CHAR(5), IN categoria CHAR(5), IN precio DECIMAL(10, 2), IN id_libro CHAR(5))
+CREATE PROCEDURE SP_RegistrarLibro(IN id_libro CHAR(5), IN titulo VARCHAR(100), IN autor CHAR(5), IN editorial CHAR(5), IN categoria CHAR(5), IN precio DECIMAL(10, 2))
 BEGIN
     INSERT INTO Libros (id_libro, titulo, autor, editorial, categoria, precio)
     VALUES (id_libro, titulo, autor, editorial, categoria, precio);
@@ -281,3 +283,32 @@ BEGIN
 END $$
 DELIMITER ;
 CALL SP_ListarEditoriales();
+
+-- Listar Autores
+DELIMITER $$
+CREATE PROCEDURE SP_ListarAutores()
+BEGIN
+    SELECT * FROM Autores;
+END $$
+DELIMITER ;
+CALL sp_ListarAutores();
+
+DELIMITER $$
+CREATE PROCEDURE SP_ListarAutor()
+BEGIN
+    SELECT id_autor, CONCAT(nombre, ' ', apellido) AS nombre, nacionalidad FROM Autores;
+END $$
+DELIMITER ;
+CALL sp_ListarAutor();
+
+DELIMITER $$
+CREATE PROCEDURE sp_FiltrarLibro(
+    IN titulo_buscar VARCHAR(100)
+)
+BEGIN
+    SELECT *
+    FROM Libros
+    WHERE titulo = titulo_buscar;
+END $$
+
+CALL sp_FiltrarLibro(1233);
