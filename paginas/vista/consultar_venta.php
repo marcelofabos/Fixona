@@ -82,7 +82,7 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
                                             </div>
                                             <div class="col">
                                                 <h5 class="card-title">Cantidad de Venta</h5>
-                                                <p class="cantidad_venta card-text">&nbsp;</p>
+                                                <p class="cantidad_vendida card-text">&nbsp;</p>
                                             </div>
                                             <div class="col">
                                                 <h5 class="card-title">Total</h5>

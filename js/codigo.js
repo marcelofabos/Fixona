@@ -174,7 +174,7 @@ $(function () {
             if (id_venta != "") {
                 // Implementar la consulta por medio de AJAX para JQuery 
                 $.ajax({
-                    url: "../controlador/ctr_consultar_venta.php",
+                    url: "../controlador/ctr_consultar_ven.php",
                     type: "POST",
                     data: { id_venta: id_venta },
                     success: function (rpta) {
@@ -189,7 +189,7 @@ $(function () {
                             $(".editorial").html(rp.editorial);
                             $(".categoria").html(rp.categoria);
                             $(".precio").html(rp.precio);
-                            $(".cantidad_venta").html(rp.cantidad_venta);
+                            $(".cantidad_vendida").html(rp.cantidad_vendida);
                             $(".total").html(rp.total);
 
 

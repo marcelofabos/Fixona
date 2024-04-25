@@ -90,7 +90,7 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title text-danger" id="staticBackdropLael"><i class="fas fa trash-alt"></i> Borrar Producto</h4>
+                    <h4 class="modal-title text-danger" id="staticBackdropLael"><i class="fas fa trash-alt"></i> Borrar Venta</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
