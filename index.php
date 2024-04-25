@@ -69,6 +69,24 @@ include("paginas/includes/cabecera.php");
         </section>
 
     </div>
+
+    <section class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h3>Envio de mensajeria por correo</h3>
+                <hr>
+                <br>
+                <form action="" id="form">
+                    <input type="email" id="email">
+                    <button type="submit">Enviar</button>
+                </form>
+                <br>
+            </div>
+        </div>
+    </section>
+
+
+    <script src="./js/app.js"></script>
 </body>
 
 </html>
