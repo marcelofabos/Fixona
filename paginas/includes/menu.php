@@ -18,6 +18,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<?= $ruta ?>/libro"><strong>Libro</strong></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= $ruta ?>/venta"><strong>Venta</strong></a>
+                </li>
              </ul>
          </div>
 

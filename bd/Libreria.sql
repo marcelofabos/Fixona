@@ -32,10 +32,11 @@ CREATE TABLE Libros (
   editorial char(5) NOT NULL,
   categoria char(5)  NULL,
   precio DECIMAL(10, 2) NOT NULL,
-  FOREIGN KEY (autor) REFERENCES Autores(id_autor),
-  FOREIGN KEY (editorial) REFERENCES Editoriales(id_editorial),
-  FOREIGN KEY (categoria) REFERENCES Categorias(id_categoria)
+  FOREIGN KEY (autor) REFERENCES Autores(id_autor) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (editorial) REFERENCES Editoriales(id_editorial) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (categoria) REFERENCES Categorias(id_categoria) ON DELETE SET NULL ON UPDATE CASCADE
 );
+
 -- Tabla de Ventas
 CREATE TABLE Ventas (
   id_venta char(5) PRIMARY KEY,
@@ -43,9 +44,8 @@ CREATE TABLE Ventas (
   fecha_venta DATE NOT NULL,
   cantidad_vendida INT NOT NULL,
   total DECIMAL(10, 2) NOT NULL,
-  FOREIGN KEY (id_libro) REFERENCES Libros(id_libro)
+  FOREIGN KEY (id_libro) REFERENCES Libros(id_libro) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
 -- Insertar datos de ejemplo en las tablas
 INSERT INTO Autores (id_autor, nombre, apellido, nacionalidad) VALUES
   ('A0001', 'Gabriel', 'García Márquez', 'Colombia'),
@@ -74,7 +74,7 @@ INSERT INTO Ventas (id_venta, id_libro, fecha_venta, cantidad_vendida, total) VA
   ('V0002', 'L0002', '2023-04-18', 3, 44.97),
   ('V0003', 'L0003', '2023-04-20', 8, 103.92);
   
-SELECT * FROM Categorias;
+SELECT * FROM Ventas;
 
   
 -- CATEGORIA----------------------------------------------
@@ -192,7 +192,7 @@ BEGIN
 END $$
 DELIMITER ;
 
-CALL SP_RegistrarLibro('Xess', 'A0002', 'E0001', 'C0002', 29.99, 'L0003');
+CALL SP_RegistrarLibro('Xess', 'A0002', 'E0001', 'C0001', 29.99, 'L0002');
 
 -- Borrar un Libro
 DELIMITER $$
@@ -281,3 +281,99 @@ BEGIN
 END $$
 DELIMITER ;
 CALL SP_ListarEditoriales();
+
+-- Venta-------------------------------------------------
+
+-- Listar ventas
+DELIMITER $$
+CREATE PROCEDURE SP_ListarVenta()
+BEGIN
+SELECT v.id_venta, v.id_libro, l.titulo, v.fecha_venta, v.cantidad_vendida, v.total
+FROM Ventas v
+INNER JOIN Libros l ON v.id_libro = l.id_libro
+ORDER BY v.id_venta ASC;
+END $$
+DELIMITER ;
+
+CALL SP_ListarVenta();
+
+-- Buscar venta
+DELIMITER $$
+CREATE PROCEDURE SP_BuscarVenta(IN id_venta_buscar CHAR(5))
+BEGIN
+SELECT v.id_venta, v.id_libro, l.titulo, v.fecha_venta, v.cantidad_vendida, v.total
+FROM Ventas v
+INNER JOIN Libros l ON v.id_libro = l.id_libro
+WHERE v.id_venta = id_venta_buscar;
+END $$
+DELIMITER ;
+
+CALL SP_BuscarVenta('V0001');
+
+-- Mostrar venta
+DELIMITER $$
+CREATE PROCEDURE SP_MostrarVenta(IN id_venta_buscar CHAR(5))
+BEGIN
+SELECT v.id_venta, v.id_libro, l.titulo, CONCAT(a.nombre, ' ', a.apellido) AS autor, a.nacionalidad, e.nombre AS editorial, c.nombre_categoria AS categoria, l.precio, v.fecha_venta, v.cantidad_vendida, v.total
+FROM Ventas v
+INNER JOIN Libros l ON v.id_libro = l.id_libro
+INNER JOIN Autores a ON l.autor = a.id_autor
+INNER JOIN Editoriales e ON l.editorial = e.id_editorial
+INNER JOIN Categorias c ON l.categoria = c.id_categoria
+WHERE v.id_venta = id_venta_buscar;
+END $$
+DELIMITER ;
+
+CALL SP_MostrarVenta('V0001');
+
+-- Filtrar  ventas
+DELIMITER $$
+CREATE PROCEDURE SP_FiltrarVenta(IN nombre_libro VARCHAR(100))
+BEGIN
+SELECT v.id_venta, v.id_libro, l.titulo, CONCAT(a.nombre, ' ', a.apellido) AS autor, a.nacionalidad, e.nombre AS editorial, c.nombre_categoria AS categoria, l.precio, v.fecha_venta, v.cantidad_vendida, v.total
+FROM Ventas v
+INNER JOIN Libros l ON v.id_libro = l.id_libro
+INNER JOIN Autores a ON l.autor = a.id_autor
+INNER JOIN Editoriales e ON l.editorial = e.id_editorial
+INNER JOIN Categorias c ON l.categoria = c.id_categoria
+WHERE l.titulo LIKE CONCAT('%', nombre_libro, '%');
+END $$
+DELIMITER ;
+
+CALL SP_FiltrarVenta('q');
+
+-- Registrar venta
+DELIMITER $$
+CREATE PROCEDURE SP_RegistrarVenta(IN id_libro_venta CHAR(5), IN fecha_venta_nueva DATE, IN cantidad_vendida_nueva INT, IN total_nuevo DECIMAL(10, 2), IN id_venta_nueva CHAR(5))
+BEGIN
+INSERT INTO Ventas (id_venta, id_libro, fecha_venta, cantidad_vendida, total)
+VALUES (id_venta_nueva, id_libro_venta, fecha_venta_nueva, cantidad_vendida_nueva, total_nuevo);
+END $$
+DELIMITER ;
+
+CALL SP_RegistrarVenta('L0002', '2023-04-22', 2, 31.98, 'V0002');
+
+-- Editar  venta
+DELIMITER $$
+CREATE PROCEDURE SP_EditarVenta(IN id_venta_editar CHAR(5), IN id_libro_nuevo CHAR(5), IN fecha_venta_nueva DATE, IN cantidad_vendida_nueva INT, IN total_nuevo DECIMAL(10, 2))
+BEGIN
+UPDATE Ventas
+SET id_libro = id_libro_nuevo,
+fecha_venta = fecha_venta_nueva,
+cantidad_vendida = cantidad_vendida_nueva,
+total = total_nuevo
+WHERE id_venta = id_venta_editar;
+END $$
+DELIMITER ;
+
+CALL SP_EditarVenta('V0003', 'L0002', '2023-04-21', 5, 74.95);
+
+-- Borrar venta
+DELIMITER $$
+CREATE PROCEDURE SP_BorrarVenta(IN id_venta_borrar CHAR(5))
+BEGIN
+DELETE FROM Ventas WHERE id_venta = id_venta_borrar;
+END $$
+DELIMITER ;
+
+CALL SP_BorrarVenta('V0003');
