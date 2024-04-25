@@ -18,7 +18,7 @@ if (isset($_POST["btn_registrar_libro"])) {
     if ($tipo == "r") {
         $crudlibro->RegistrarLibro($libro);
     } else if ($tipo == "e") {
-        //$crudcalibro->EditarCategoria($producto);
+        $crudlibro->EditarLibro($libro);
     }
     header("location: ../vista/listar_libro.php");
 } 

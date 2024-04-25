@@ -113,20 +113,20 @@ class CRUDLibro extends Conexion
         }
     
         //Editar Libro
-        public function EditarLibro(Producto $producto)
+        public function EditarLibro(Libro $libro)
         {
             try {
                 $cn = $this->Conectar();
-                $sql = "call sp_EditarProducto(:codprod, :prod, :stk, :cst, :gnc, :codmar, :codcat)";
+                $sql = "call sp_EditarLibro(:id_libro, :titulo, :autor, :editorial, :categoria, :precio)";
                 $snt = $cn->prepare($sql);
     
-                $snt->bindParam(":codprod", $producto->codigo_producto);
-                $snt->bindParam(":prod", $producto->producto);
-                $snt->bindParam(":stk", $producto->stock_disponible);
-                $snt->bindParam(":cst", $producto->costo);
-                $snt->bindParam(":gnc", $producto->ganancia);
-                $snt->bindParam(":codmar", $producto->producto_codigo_marca);
-                $snt->bindParam(":codcat", $producto->producto_codigo_categoria);
+                $snt->bindParam(":id_libro", $libro->id_libro);
+                $snt->bindParam(":titulo", $libro->titulo);
+                $snt->bindParam(":autor", $libro->autor);
+                $snt->bindParam(":editorial", $libro->editorial);
+                $snt->bindParam(":categoria", $libro->categoria);
+                $snt->bindParam(":precio", $libro->precio);
+
                 $snt->execute();
                 $cn = null;
             } catch (PDOException $ex) {
