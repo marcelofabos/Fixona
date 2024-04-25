@@ -56,7 +56,7 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
                             foreach ($rs_auto as $auto) {
                                 $i++;
                             ?>
-                                <tr class="reg_editoriales">
+                                <tr class="reg_autores">
                                     <td><?= $i ?></td>
                                     <td class="id_autores"><?= $auto->id_autor ?></td>
                                     <td class="autores"><?= $auto->nombre ?> </td>

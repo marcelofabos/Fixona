@@ -18,6 +18,11 @@ $(function () {
         location.href = "mostrar_venta.php?id_venta=" + id_venta;
     })
 
+    $(".reg_autores .btn_mostrar").click(function (e) {
+        let id_autores = $(this).closest(".reg_autores").children(".id_autores").text();
+        location.href = "mostrar_autores.php?id_autores=" + id_autores;
+    })
+
     $(".reg_producto .btn_editar").click(function (e) {
         let codprod = $(this).closest(".reg_producto").children(".codprod").text();
         location.href = "editar_producto.php?codprod=" + codprod;
