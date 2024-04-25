@@ -21,6 +21,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="<?= $ruta ?>/venta"><strong>Venta</strong></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= $ruta ?>/editoriales"><strong>Editoriales</strong></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= $ruta ?>/autor"><strong>Autor</strong></a>
+                </li>
              </ul>
          </div>
 

@@ -272,15 +272,179 @@ CALL SP_FiltrarLibro('s');
 
 -- LIBRO--------------------------------------------------
 
+
+
+
+
+
+
+
 -- EDITORIALES--------------------------------------------
--- Listar Editoriales
+
+-- Listar todas las Editoriales ordenadas de manera ascendente
 DELIMITER $$
-CREATE PROCEDURE SP_ListarEditoriales()
+CREATE PROCEDURE SP_ListarEditorial()
 BEGIN
-    SELECT * FROM Editoriales;
+SELECT * FROM Editoriales
+ORDER BY id_editorial ASC;
 END $$
 DELIMITER ;
-CALL SP_ListarEditoriales();
+CALL SP_ListarEditorial();
+
+-- Buscar una editorial por código
+DELIMITER $$
+CREATE PROCEDURE SP_BuscarEditorial(IN id_edit CHAR(5))
+BEGIN
+SELECT * FROM Editoriales
+WHERE id_editorial = id_edit;
+END $$
+DELIMITER ;
+
+-- Mostrar la información completa de una editorial por código
+DELIMITER $$
+CREATE PROCEDURE SP_MostrarEditorial(IN id_edit CHAR(5))
+BEGIN
+SELECT e.id_editorial, e.nombre, e.pais, COUNT(l.id_libro) AS cant_libros
+FROM Editoriales e
+LEFT JOIN Libros l ON e.id_editorial = l.editorial
+WHERE e.id_editorial = id_edit
+GROUP BY e.id_editorial;
+END $$
+DELIMITER ;
+
+-- Filtrar la información completa de las editoriales por nombre
+DELIMITER $$
+CREATE PROCEDURE SP_FiltrarEditorial(IN nombre_filtro VARCHAR(50))
+BEGIN
+SELECT e.id_editorial, e.nombre, e.pais, COUNT(l.id_libro) AS cant_libros
+FROM Editoriales e
+LEFT JOIN Libros l ON e.id_editorial = l.editorial
+WHERE e.nombre LIKE CONCAT('%', nombre_filtro, '%')
+GROUP BY e.id_editorial;
+END $$
+DELIMITER ;
+
+-- Registrar la información de una editorial
+DELIMITER $$
+CREATE PROCEDURE SP_RegistrarEditorial(IN nombre_nueva VARCHAR(50), IN pais_nuevo VARCHAR(50), IN id_editorial_nueva CHAR(5))
+BEGIN
+INSERT INTO Editoriales (id_editorial, nombre, pais)
+VALUES (id_editorial_nueva, nombre_nueva, pais_nuevo);
+END $$
+DELIMITER ;
+
+-- Editar la información de una editorial
+DELIMITER $$
+CREATE PROCEDURE SP_EditarEditorial(IN id_edit CHAR(5), IN nombre_nueva VARCHAR(50), IN pais_nuevo VARCHAR(50))
+BEGIN
+UPDATE Editoriales
+SET nombre = nombre_nueva,
+pais = pais_nuevo
+WHERE id_editorial = id_edit;
+END $$
+DELIMITER ;
+
+-- Borrar la información de una editorial
+DELIMITER $$
+CREATE PROCEDURE SP_BorrarEditorial(IN id_edit CHAR(5))
+BEGIN
+DELETE FROM Editoriales
+WHERE id_editorial = id_edit;
+END $$
+DELIMITER ;
+
+
+
+
+
+
+
+
+-- Autores--------------------------------------------------
+
+-- Listar todos los autores ordenados de manera ascendente
+DELIMITER $$
+CREATE PROCEDURE SP_ListarAutor()
+BEGIN
+SELECT * FROM Autores
+ORDER BY id_autor ASC;
+END $$
+DELIMITER ;
+CALL SP_ListarAutor();
+-- Buscar un autor por código
+DELIMITER $$
+CREATE PROCEDURE SP_BuscarAutor(IN id_aut CHAR(5))
+BEGIN
+SELECT * FROM Autores
+WHERE id_autor = id_aut;
+END $$
+DELIMITER ;
+
+-- Mostrar la información completa de un autor por código
+DELIMITER $$
+CREATE PROCEDURE SP_MostrarAutor(IN id_aut CHAR(5))
+BEGIN
+SELECT a.id_autor, a.nombre, a.apellido, a.nacionalidad, COUNT(l.id_libro) AS cant_libros
+FROM Autores a
+LEFT JOIN Libros l ON a.id_autor = l.autor
+WHERE a.id_autor = id_aut
+GROUP BY a.id_autor;
+END $$
+DELIMITER ;
+
+-- Filtrar la información completa de los autores por nombre
+DELIMITER $$
+CREATE PROCEDURE SP_FiltrarAutor(IN nombre_filtro VARCHAR(50))
+BEGIN
+SELECT a.id_autor, a.nombre, a.apellido, a.nacionalidad, COUNT(l.id_libro) AS cant_libros
+FROM Autores a
+LEFT JOIN Libros l ON a.id_autor = l.autor
+WHERE a.nombre LIKE CONCAT('%', nombre_filtro, '%') OR a.apellido LIKE CONCAT('%', nombre_filtro, '%')
+GROUP BY a.id_autor;
+END $$
+DELIMITER ;
+CALL SP_FiltrarAutor('l');
+
+-- Registrar la información de un autor
+DELIMITER $$
+CREATE PROCEDURE SP_RegistrarAutor(IN nombre_nuevo VARCHAR(50), IN apellido_nuevo VARCHAR(50), IN nacionalidad_nueva VARCHAR(50), IN id_autor_nuevo CHAR(5))
+BEGIN
+INSERT INTO Autores (id_autor, nombre, apellido, nacionalidad)
+VALUES (id_autor_nuevo, nombre_nuevo, apellido_nuevo, nacionalidad_nueva);
+END $$
+DELIMITER ;
+
+-- Editar la información de un autor
+DELIMITER $$
+CREATE PROCEDURE SP_EditarAutor(IN id_aut CHAR(5), IN nombre_nuevo VARCHAR(50), IN apellido_nuevo VARCHAR(50), IN nacionalidad_nueva VARCHAR(50))
+BEGIN
+UPDATE Autores
+SET nombre = nombre_nuevo,
+apellido = apellido_nuevo,
+nacionalidad = nacionalidad_nueva
+WHERE id_autor = id_aut;
+END $$
+DELIMITER ;
+
+-- Borrar la información de un autor
+DELIMITER $$
+CREATE PROCEDURE SP_BorrarAutor(IN id_aut CHAR(5))
+BEGIN
+DELETE FROM Autores
+WHERE id_autor = id_aut;
+END $$
+DELIMITER ;
+
+
+
+
+
+
+
+
+
+
+
 
 -- Venta-------------------------------------------------
 
