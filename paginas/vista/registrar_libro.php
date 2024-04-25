@@ -15,9 +15,11 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
 
             $crudeditoriales = new CRUDEditoriales();
             $crudcategoria = new CRUDCategoria();
+            $crudautores = new CRUDAutores();
 
             $rs_edito = $crudeditoriales->ListarEditoriales();
             $rs_cat = $crudcategoria->ListarCategoria();
+            $rs_autores = $crudautores->ListarAutores();
         ?>
         <div class="container mt-3">
             <header>
@@ -39,73 +41,82 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
                             <div class="card">
                                 <div class="card-body">
                                     <!--Inicio del Formulario-->
-                                    <form id="frm_regitrar_prod" name="frm_registrar_prod" method="post" action="../controlador/ctr_grabar_prod.php" autocomplete="off">
+                                    <form id="frm_regitrar_libro" name="frm_registrar_libro" method="post" action="../controlador/ctr_grabar_libro.php" autocomplete="off">
                                         <input type="hidden" id="txt_tipo" name="txt_tipo" value="r"/>
 
                                         <div class="row g-3">
 
                                             <div class="col-md-4">
-                                                <label for="txt_codprod" class="form-label">Id</label>
-                                                <input type="text" class="form-control" id="txt_codprod" name="txt_codprod" placeholder="Código" maxlength="5" autofocus />
+                                                <label for="txt_id_libro" class="form-label">Id</label>
+                                                <input type="text" class="form-control" id="txt_id_libro" name="txt_id_libro" placeholder="Código" maxlength="5" autofocus />
                                             </div>
                                             <div class="col-md-8">
-                                                <label for="txt_prod" class="form-label">Titulo</label>
-                                                <input type="text" class="form-control" id="txt_prod" name="txt_prod" placeholder="Nombre del Producto" maxlength="40" />
+                                                <label for="txt_titulo" class="form-label">Titulo</label>
+                                                <input type="text" class="form-control" id="txt_titulo" name="txt_titulo" placeholder="Nombre del Producto" maxlength="40" />
                                             </div>
-                                            <div class="col-md-4">
-                                                <label for="txt_stk" class="form-label">Autor</label>
-                                                <input type="number" class="form-control" id="txt_stk" name="txt_stk" placeholder="Stock" maxlength="4" min="1" max="9999" />
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label for="txt_cst" class="form-label">Nacionalidad</label>
-                                                <input type="text" class="form-control" id="txt_cst" name="txt_cst" placeholder="Costo" maxlength="8" />
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label for="txt_gnc" class="form-label">Categoria</label>
-                                                <input type="number" class="form-control" id="txt_gnc" name="txt_gnc" placeholder="Ganancia" maxlength="1" max="100" step="0.01" />
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label for="txt_gnc" class="form-label">Precio</label>
-                                                <input type="number" class="form-control" id="txt_gnc" name="txt_gnc" placeholder="Ganancia" maxlength="1" max="100" step="0.01" />
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label for="cbo_mar" class="form-label">Editorial</label>
-                                                <select class="form-select form-select-lg mb-3" id="cbo_mar" name="cbo_mar" >
-                                                    <option value="" selected>[Seleccine Marca]</option>
-                                                <?php
-                                                
-                                                    foreach ($rs_edito as $edito){
-                                                
-                                                ?>
-                                                    <option value="<?=$mar->codigo_marca?>"><?=$mar->marca?></option>
 
-                                                <?php
-                                                    }
-                                                ?>
+                                            <!-- dropdown -->
+                                            <div class="col-md-4">
+                                                <label for="txt_autor" class="form-label">Autor</label>
+                                                <select class="form-select form-select-lg mb-3" id="txt_autor" name="txt_autor" >
+                                                    <option value="" selected>[Seleccine Autor]</option>
+                                                    <?php
+                                                        foreach ($rs_autores as $autor){
+                                                    ?>
+                                                        <option value="<?=$autor->id_autor?>"><?=$autor->nombre?></option>
+
+                                                    <?php
+                                                        }
+                                                    ?>
                                                 </select>
                                             </div>
-                                            <div class="col-md-6">
-                                                <label for="cbo_cat" class="form-label">Categoría</label>
-                                                <select class="form-select form-select-lg mb-3" id="cbo_cat" name="cbo_cat">
-                                                    <option value="" selected>[Seleccion Categoria]</option>
 
-                                                <?php
-                                                
-                                                    foreach ($rs_cat as $cat){
-                                                
-                                                ?>
-                                                    <option value="<?=$cat->codigo_categoria?>"><?=$cat->categoria?></option>
+                                            <!-- dropdown -->
+                                            <div class="col-md-4">
+                                                <label for="txt_editorial" class="form-label">Editorial</label>
+                                                <select class="form-select form-select-lg mb-3" id="txt_editorial" name="txt_editorial" >
+                                                    <option value="" selected>[Seleccine Editorial]</option>
+                                                    <?php
+                                                    
+                                                        foreach ($rs_edito as $edito){
+                                                    
+                                                    ?>
+                                                        <option value="<?=$edito->id_editorial?>"><?=$edito->nombre?></option>
 
-                                                <?php
-                                                    }
-                                                ?>
+                                                    <?php
+                                                        }
+                                                    ?>
                                                 </select>
+                                            </div>
+
+                                            <!-- dropdown -->
+                                            <div class="col-md-4">
+                                                <label for="txt_categoria" class="form-label">Categoria</label>
+                                                <select class="form-select form-select-lg mb-3" id="txt_categoria" name="txt_categoria" >
+                                                    <option value="" selected>[Seleccine Categoria]</option>
+                                                    <?php
+                                                    
+                                                        foreach ($rs_cat as $cat){
+                                                    
+                                                    ?>
+                                                        <option value="<?=$cat->id_categoria?>"><?=$cat->nombre_categoria?></option>
+
+                                                    <?php
+                                                        }
+                                                    ?>
+                                                </select>
+                                            </div>
+
+
+                                            <div class="col-md-4">
+                                                <label for="txt_precio" class="form-label">Precio</label>
+                                                <input type="number" class="form-control" id="txt_precio" name="txt_precio" placeholder="Ganancia" maxlength="1" max="100" step="0.01" />
                                             </div>
                                         </div>
 
 
                                         <div class="text-center">
-                                            <button type="submit" class="btn btn-outline-primary" id="btn_registrar_prod" name="btn_registrar_prod" >
+                                            <button type="submit" class="btn btn-outline-primary" id="btn_registrar_libro" name="btn_registrar_libro" >
                                                 <i class="fas fa-save"></i> Grabar Informacion
                                         
                                             </button>

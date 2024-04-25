@@ -100,7 +100,7 @@ DELIMITER ;
 CALL SP_MostrarCategoria('C0002');
 
 
--- Registrar un nuevo registro
+-- Registrar un nueva categoria
 DELIMITER $$
 CREATE PROCEDURE SP_RegistrarCategoria(IN nombre_nueva VARCHAR(50), IN id_categoria CHAR(5))
 BEGIN
