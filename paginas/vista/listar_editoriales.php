@@ -58,7 +58,7 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
                                 <tr class="reg_editoriales">
                                     <td><?= $i ?></td>
                                     <td class="id_editoriales"><?= $edito->id_editorial ?></td>
-                                    <td class="lib"><?= $edito->nombre ?> </td>
+                                    <td class="edito"><?= $edito->nombre ?> </td>
                                     <td><?= $edito->pais ?></td>
                                     <td> <a href="#" class="btn_mostrar btn btn-outline-primary"><i class="fas fa-info"></i></a></td>
                                     <td> <a href="#" class="btn_editar btn btn-outline-success"><i class="fas fa-pen"></i></a></td>

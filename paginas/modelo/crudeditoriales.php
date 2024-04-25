@@ -7,7 +7,7 @@ class CRUDEditoriales extends Conexion
 
         $cn = $this->Conectar();
 
-        $sql = "call SP_ListarAutor()";
+        $sql = "call SP_ListarEditorial()";
 
         $snt = $cn->prepare($sql);
 
@@ -26,7 +26,7 @@ class CRUDEditoriales extends Conexion
 
         $cn = $this->Conectar();
 
-        $sql = "call SP_MostrarAutor(:id_edit);";
+        $sql = "call SP_MostrarEditorial(:id_edit);";
 
         $snt = $cn->prepare($sql);
 
@@ -50,7 +50,7 @@ class CRUDEditoriales extends Conexion
     {
         try {
             $cn = $this->Conectar();
-            $sql = "call SP_BorrarAutor(:id_edit)";
+            $sql = "call SP_BorrarEditorial(:id_edit)";
             $snt = $cn->prepare($sql);
             $snt->bindParam(":id_edit", $id_edit);
             $snt->execute();
@@ -67,7 +67,7 @@ class CRUDEditoriales extends Conexion
 
         $cn = $this->Conectar();
 
-        $sql = "call SP_BuscarAutor(:id_edit);";
+        $sql = "call SP_BuscarEditorial(:id_edit);";
 
         $snt = $cn->prepare($sql);
 
