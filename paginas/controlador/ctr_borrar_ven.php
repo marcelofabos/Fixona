@@ -3,8 +3,8 @@
 
     $crudventa = new CRUDVenta();
 
-    if (isset($_GET["id_venta"])) {
-        $id_venta = $_GET["id_venta"];
+    if (isset($_GET["id_ven"])) {
+        $id_venta = $_GET["id_ven"];
 
         $crudventa ->BorrarVenta($id_venta);
 
