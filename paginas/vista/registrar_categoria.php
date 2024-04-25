@@ -2,7 +2,7 @@
 <html lang="es">
 <?php
 $ruta = "../..";
-$titulo = "Aplicacion de Ventas - Registrar Producto";
+$titulo = "Aplicacion de Ventas - Registrar ";
 include("../includes/cabecera.php");
 ?>
 
