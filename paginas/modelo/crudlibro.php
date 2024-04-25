@@ -195,25 +195,20 @@ class CRUDLibro extends Conexion
         $cn = null;
     }
 
-        //Consultar Producto por Codigo(JSON)
-        public function ConsultarLibro($id_lib)
-        {
-            $arr_lib = null;
-            $cn = $this->Conectar();
-            $sql = "call sp_MostrarLibro(:id_lib);";
-            $snt = $cn->prepare($sql);
-            $snt->bindParam(":id_lib", $id_lib, PDO::PARAM_STR, 5);
-            $snt->execute();
-            $nr = $snt->rowCount();
-            if ($nr > 0) {
-                $arr_lib = $snt->fetch(PDO::FETCH_OBJ);
-            }
-            $cn = null;
-            echo json_encode($arr_lib);
+    //Consultar Producto por Codigo(JSON)
+    public function ConsultarLibro($id_lib)
+    {
+        $arr_lib = null;
+        $cn = $this->Conectar();
+        $sql = "call sp_MostrarLibro(:id_lib);";
+        $snt = $cn->prepare($sql);
+        $snt->bindParam(":id_lib", $id_lib, PDO::PARAM_STR, 5);
+        $snt->execute();
+        $nr = $snt->rowCount();
+        if ($nr > 0) {
+            $arr_lib = $snt->fetch(PDO::FETCH_OBJ);
         }
-    
-
-
-
-
+        $cn = null;
+        echo json_encode($arr_lib);
+    }
 }

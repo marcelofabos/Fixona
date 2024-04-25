@@ -15,7 +15,7 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
     ?>
     <div class="container mt-3">
         <header>
-            <h1><i class="fas fa-search"></i> Consultar Producto</h1>
+            <h1><i class="fas fa-search"></i> Consultar Categoria</h1>
             <hr />
         </header>
 
@@ -30,60 +30,29 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
                 <div class="row justify-content-center mt-3">
                     <div class="card col-md-6">
                         <div class="card-body">
-                            <form id="frm_consultar_prod" name="frm_consultar_prod" method="post">
+                            <form id="frm_consultar_cate" name="frm_consultar_cate" method="post">
                                 <div class="row g-3">
                                     <div class="col-md-4">
-                                        <label for="txt_codprod" class="frm-label">Código</label>
-                                        <input type="text" class="form-control" id="txt_codprod" name="txt_codprod" placeholder="Código a buscar" maxlength="5" autofocus />
+                                        <label for="txt_id_cate" class="frm-label">Código</label>
+                                        <input type="text" class="form-control" id="txt_id_cate" name="txt_id_cate" placeholder="Código a buscar" maxlength="5" autofocus />
                                     </div>
                                     <div class="col-md-8"></div>
 
                                     <div class="col-md-8">
                                         <div class="row align-items-start">
                                             <div class="col">
-                                                <h5 class="card-title">Producto</h5>
-                                                <p class="prod card-text">&nbsp;</p>
-                                            </div>
-                                            <div class="col">
-                                                <h5 class="card-title">Stock disponible</h5>
-                                                <p class="stk card-text">&nbsp;</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-8"></div>
-
-                                    <div>
-                                        <div class="row align-items-start">
-                                            <div class="col">
-                                                <h5 class="card-title">Costo S/.</h5>
-                                                <p class="cst card-text">&nbsp;</p>
-                                            </div>
-                                            <div class="col">
-                                                <h5 class="card-title">% Ganancia</h5>
-                                                <p class="gnc card-text">&nbsp;</p>
-                                            </div>
-                                            <div class="col">
-                                                <h5 class="card-title">Precio S/.</h5>
-                                                <p class="prc card-text">&nbsp;</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-8"></div>
-
-                                    <div class="col-md-8">
-                                        <div class="row align-items-start">
-                                            <div class="col">
-                                                <h5 class="card-title">Marca</h5>
-                                                <p class="mar card-text">&nbsp;</p>
+                                                <h5 class="card-title">Id</h5>
+                                                <p class="id_cate card-text">&nbsp;</p>
                                             </div>
                                             <div class="col">
                                                 <h5 class="card-title">Categoria</h5>
-                                                <p class="cat card-text">&nbsp;</p>
+                                                <p class="cate card-text">&nbsp;</p>
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="col-md-8"></div>
+
                                 </div>
                             </form>
                             <div class="text-center mt-3">
@@ -101,7 +70,7 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
         <div class="modal fade" id="md_consulta_error" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-md modal-dialog-centered">
                 <div class="modal-content">
-                    <div class="modal-header bg-warning">
+                    <div class="modal-header bg-danger">
                         <h1 class="modal-title fs-5" id="staticBackdropLabel">Advertencia</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>

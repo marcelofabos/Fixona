@@ -1,5 +1,6 @@
 -- Crear la base de datos
 CREATE DATABASE libreria;
+
 USE libreria;
 
 -- Tabla de Autores
@@ -122,6 +123,31 @@ DELIMITER ;
 
 CALL sp_BorrarCategoria('C0003');
 
+-- Editar Categoria
+DELIMITER $$
+CREATE PROCEDURE SP_EditarCategoria(
+    IN id_cate CHAR(5),
+    IN nueva_nombre VARCHAR(50)
+)
+BEGIN
+    UPDATE Categorias
+    SET nombre_categoria = nueva_nombre
+    WHERE id_categoria = id_cate;
+END$$
+DELIMITER ;
+CALL SP_EditarCategoria('C0001', 'Nueva Categoría');
+
+-- Filtrar Categoria
+DELIMITER $$
+CREATE PROCEDURE SP_FiltrarCategoria(IN nombre_filtro VARCHAR(50))
+BEGIN
+    SELECT *
+    FROM Categorias
+    WHERE nombre_categoria LIKE CONCAT('%', nombre_filtro, '%');
+END$$
+DELIMITER ;
+CALL SP_FiltrarCategoria('Nove');
+
 
 
 -- CATEGORIA----------------------------------------------
@@ -242,6 +268,7 @@ END$$
 DELIMITER ;
 
 CALL SP_FiltrarLibro('s');
+
 
 -- LIBRO--------------------------------------------------
 
