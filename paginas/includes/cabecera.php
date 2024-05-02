@@ -13,7 +13,13 @@
     <script src="<?=$ruta?>/js/jquery.js"></script>
     <script src="<?=$ruta?>/js/codigo.js"></script>
 
+<!-- BOT -->
+    
+    <!-- <link rel="stylesheet" href="./css/chatbot/chatbot.css"> -->
 
+    
+    <!-- <script src="./js/chatbot.js"></script> -->
+    
 
     <title><?=$titulo?></title>
 

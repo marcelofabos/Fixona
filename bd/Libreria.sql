@@ -1,7 +1,7 @@
 -- Crear la base de datos
-CREATE DATABASE libreria;
+-- CREATE DATABASE libreria;
 
-USE libreria;
+-- USE libreria;
 
 -- Tabla de Autores
 CREATE TABLE Autores (
@@ -74,7 +74,7 @@ INSERT INTO Ventas (id_venta, id_libro, fecha_venta, cantidad_vendida, total) VA
   ('V0002', 'L0002', '2023-04-18', 3, 44.97),
   ('V0003', 'L0003', '2023-04-20', 8, 103.92);
   
-SELECT * FROM Ventas;
+-- SELECT * FROM Ventas;
 
   
 -- CATEGORIA----------------------------------------------
@@ -87,7 +87,7 @@ BEGIN
 END $$
 DELIMITER ;
 
-CALL SP_ListarCategoria();
+-- CALL SP_ListarCategoria();
 
 -- Mostrar categoría por código
 DELIMITER $$
@@ -98,7 +98,7 @@ BEGIN
 END $$
 DELIMITER ;
 
-CALL SP_MostrarCategoria('C0002');
+-- CALL SP_MostrarCategoria('C0002');
 
 
 -- Registrar un nuevo registro
@@ -110,7 +110,7 @@ BEGIN
 END $$
 DELIMITER ;
 
-CALL SP_RegistrarCategoria('Thriller', 'C0003');
+-- CALL SP_RegistrarCategoria('Thriller', 'C0003');
 
 -- Borrar la información de una categoría
 DELIMITER $$
@@ -121,7 +121,7 @@ BEGIN
 END$$
 DELIMITER ;
 
-CALL sp_BorrarCategoria('C0003');
+-- CALL sp_BorrarCategoria('C0003');
 
 -- Editar Categoria
 DELIMITER $$
@@ -135,7 +135,7 @@ BEGIN
     WHERE id_categoria = id_cate;
 END$$
 DELIMITER ;
-CALL SP_EditarCategoria('C0001', 'Nueva Categoría');
+-- CALL SP_EditarCategoria('C0001', 'Nueva Categoría');
 
 -- Filtrar Categoria
 DELIMITER $$
@@ -146,7 +146,7 @@ BEGIN
     WHERE nombre_categoria LIKE CONCAT('%', nombre_filtro, '%');
 END$$
 DELIMITER ;
-CALL SP_FiltrarCategoria('Nove');
+-- CALL SP_FiltrarCategoria('Nove');
 
 
 
@@ -165,7 +165,7 @@ BEGIN
 END $$
 DELIMITER ;
 
-CALL SP_ListarLibro();
+-- CALL SP_ListarLibro();
 
 
 -- Mostrar Libro por ID
@@ -181,7 +181,7 @@ BEGIN
 END $$
 DELIMITER ;
 
-CALL SP_MostrarLibro('L0001');
+-- CALL SP_MostrarLibro('L0001');
 
 -- Registrar un nuevo Libro
 DELIMITER $$
@@ -192,7 +192,7 @@ BEGIN
 END $$
 DELIMITER ;
 
-CALL SP_RegistrarLibro('Xess', 'A0002', 'E0001', 'C0001', 29.99, 'L0002');
+-- CALL SP_RegistrarLibro('Xess', 'A0002', 'E0001', 'C0001', 29.99, 'L0002');
 
 -- Borrar un Libro
 DELIMITER $$
@@ -201,7 +201,7 @@ BEGIN
     DELETE FROM Libros WHERE id_libro = id_lib;
 END $$
 DELIMITER ;
-CALL SP_BorrarLibro('L0003');
+-- CALL SP_BorrarLibro('L0003');
 
 -- Buscar Libro
 DELIMITER $$
@@ -215,7 +215,7 @@ BEGIN
     WHERE l.id_libro = id_lib;
 END $$
 DELIMITER ;
-CALL SP_BuscarLibro('L0001');
+-- CALL SP_BuscarLibro('L0001');
 
 -- Editar Libro
 
@@ -239,7 +239,7 @@ BEGIN
 END $$
 DELIMITER ;
 
-CALL SP_EditarLibro('L0001', 'Nuevo título', 'A0003', 'E0001', 'C0002', 24.99);
+-- CALL SP_EditarLibro('L0001', 'Nuevo título', 'A0003', 'E0001', 'C0002', 24.99);
 
 -- Filtrar Libro
 
@@ -267,7 +267,7 @@ BEGIN
 END$$
 DELIMITER ;
 
-CALL SP_FiltrarLibro('s');
+-- CALL SP_FiltrarLibro('s');
 
 
 -- LIBRO--------------------------------------------------
@@ -289,7 +289,7 @@ SELECT * FROM Editoriales
 ORDER BY id_editorial ASC;
 END $$
 DELIMITER ;
-CALL SP_ListarEditorial();
+-- CALL SP_ListarEditorial();
 
 -- Buscar una editorial por código
 DELIMITER $$
@@ -370,7 +370,7 @@ SELECT * FROM Autores
 ORDER BY id_autor ASC;
 END $$
 DELIMITER ;
-CALL SP_ListarAutor();
+-- CALL SP_ListarAutor();
 -- Buscar un autor por código
 DELIMITER $$
 CREATE PROCEDURE SP_BuscarAutor(IN id_aut CHAR(5))
@@ -403,7 +403,7 @@ WHERE a.nombre LIKE CONCAT('%', nombre_filtro, '%') OR a.apellido LIKE CONCAT('%
 GROUP BY a.id_autor;
 END $$
 DELIMITER ;
-CALL SP_FiltrarAutor('l');
+-- CALL SP_FiltrarAutor('l');
 
 -- Registrar la información de un autor
 DELIMITER $$
@@ -459,7 +459,7 @@ ORDER BY v.id_venta ASC;
 END $$
 DELIMITER ;
 
-CALL SP_ListarVenta();
+-- CALL SP_ListarVenta();
 
 -- Buscar venta
 DELIMITER $$
@@ -472,7 +472,7 @@ WHERE v.id_venta = id_venta_buscar;
 END $$
 DELIMITER ;
 
-CALL SP_BuscarVenta('V0001');
+-- CALL SP_BuscarVenta('V0001');
 
 -- Mostrar venta
 DELIMITER $$
@@ -488,7 +488,7 @@ WHERE v.id_venta = id_venta_buscar;
 END $$
 DELIMITER ;
 
-CALL SP_MostrarVenta('V0001');
+-- CALL SP_MostrarVenta('V0001');
 
 -- Filtrar  ventas
 DELIMITER $$
@@ -504,7 +504,7 @@ WHERE l.titulo LIKE CONCAT('%', nombre_libro, '%');
 END $$
 DELIMITER ;
 
-CALL SP_FiltrarVenta('q');
+-- CALL SP_FiltrarVenta('q');
 
 -- Registrar venta
 DELIMITER $$
@@ -515,7 +515,7 @@ VALUES (id_venta_nueva, id_libro_venta, fecha_venta_nueva, cantidad_vendida_nuev
 END $$
 DELIMITER ;
 
-CALL SP_RegistrarVenta('L0002', '2023-04-22', 2, 31.98, 'V0002');
+-- CALL SP_RegistrarVenta('L0002', '2023-04-22', 2, 31.98, 'V0002');
 
 -- Editar  venta
 DELIMITER $$
@@ -530,7 +530,7 @@ WHERE id_venta = id_venta_editar;
 END $$
 DELIMITER ;
 
-CALL SP_EditarVenta('V0003', 'L0002', '2023-04-21', 5, 74.95);
+-- CALL SP_EditarVenta('V0003', 'L0002', '2023-04-21', 5, 74.95);
 
 -- Borrar venta
 DELIMITER $$
@@ -540,4 +540,49 @@ DELETE FROM Ventas WHERE id_venta = id_venta_borrar;
 END $$
 DELIMITER ;
 
-CALL SP_BorrarVenta('V0003');
+-- CALL SP_BorrarVenta('V0003');
+
+-- -----------------------------------------
+-- CHAT BOT
+-- -----------------------------------------
+
+
+CREATE TABLE `chatbot` (
+  `id` int(11) NOT NULL,
+  `queries` varchar(300) NOT NULL,
+  `replies` varchar(300) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `chatbot`
+--
+
+INSERT INTO `chatbot` (`id`, `queries`, `replies`) VALUES
+(1, 'Cual es el horario de clases', 'El horario de clases varia segun el grado. Puedes encontrar el horario especifico en la seccion de \"Academicos\" de la pagina web.'),
+(2, 'Donde puedo encontrar los resultados de los examenes', 'Los resultados de los examenes se publican en la plataforma virtual del colegio. Inicia sesion con tus credenciales para acceder a ellos.'),
+(3, 'Cual es el correo electronico de contacto', 'Puedes contactarnos a traves de nuestro correo electronico institucional: info@colegioejemplo.edu.pe'),
+(4, 'Hay alguna actividad especial esta semana', 'Si, esta semana tendremos una charla sobre orientacion vocacional el viernes en el auditorio. No te lo pierdas!'),
+(5, 'Cual es la fecha limite para entregar el proyecto de historia?', 'La fecha limite para entregar el proyecto de historia es el proximo lunes.'),
+(6, 'Como puedo inscribirme en el equipo de futbol', 'Para inscribirte en el equipo de futbol, comunicate con el entrenador del equipo durante el recreo o envia un mensaje al departamento de deportes.'),
+(7, 'Quien es el LEDER', 'El LEDER es Sebastian Cardenas');
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `chatbot`
+--
+ALTER TABLE `chatbot`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `chatbot`
+--
+ALTER TABLE `chatbot`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+COMMIT;

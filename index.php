@@ -12,6 +12,7 @@ include("paginas/includes/cabecera.php");
 <body>
     <?php
     include("paginas/includes/menu.php");
+    include("paginas/includes/chatbot.php");
     ?>
     <div class="container mt-3">
         <header>
