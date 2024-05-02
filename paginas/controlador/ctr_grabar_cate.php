@@ -16,6 +16,6 @@ if (isset($_POST["btn_registrar_cate"])) {
     } else if ($tipo == "e") {
         $crudcategoria->EditarCategoria($categoria);
     }
-    header("location: ../vista/listar_libro.php");
+    header("location: ../vista/listar_categoria.php");
 }
 

@@ -49,8 +49,6 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
                                 <th>Id Libro</th>
                                 <th>Titulo</th>
                                 <th>Fecha de Venta</th>
-                                <th>Cantidad Vendida</th>
-                                <th>Total</th>
                                 <th class="text-center" colspan="3"> Acciones</th>
                             </tr>
                             <?php
@@ -64,8 +62,7 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
                                     <td class="venta"><?= $vent->id_libro?></td>
                                     <td><?= $vent->titulo ?></td>
                                     <td><?= $vent->fecha_venta ?></td>
-                                    <td><?= $vent->cantidad_vendida ?></td>
-                                    <td><?= $vent->total ?></td>
+
 
                                     <td> <a href="#" class="btn_mostrar btn btn-outline-primary"><i class="fas fa-info"></i></a></td>
                                     <td> <a href="#" class="btn_editar btn btn-outline-success"><i class="fas fa-pen"></i></a></td>

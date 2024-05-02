@@ -16,7 +16,7 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
             $crudeditoriales = new CRUDEditoriales();
             $crudcategoria = new CRUDCategoria();
 
-            $rs_edito = $crudeditoriales->ListarEditoriales();
+            $rs_edito = $crudeditoriales->ListarEditorial();
             $rs_cat = $crudcategoria->ListarCategoria();
         ?>
         <div class="container mt-3">
@@ -54,22 +54,20 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
                                             </div>
                                             <div class="col-md-4">
                                                 <label for="txt_autor" class="form-label">Autor</label>
-                                                <input type="text" class="form-control" id="txt_autor" name="txt_autor" placeholder="Autor" maxlength="4" min="1" max="9999" />
+                                                <input type="text" class="form-control" id="txt_autor" name="txt_autor" placeholder="Autor" maxlength="5" min="1" max="9999" />
                                             </div>
                                             <div class="col-md-4">
-                                                <label for="cbo_precio" class="form-label">Precio</label>
-                                                <input type="number" class="form-control" id="cbo_precio" name="cbo_precio" placeholder="Precio" maxlength="1" max="100" step="0.01" />
+                                                <label for="txt_precio" class="form-label">Precio</label>
+                                                <input type="number" class="form-control" id="txt_precio" name="txt_precio" placeholder="Precio"  />
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="cbo_editorial" class="form-label">Editorial</label>
                                                 <select class="form-select form-select-lg mb-3" id="cbo_editorial" name="cbo_editorial" >
-                                                    <option value="" selected>[Seleccine Marca]</option>
+                                                    <option value="" selected>[Seleccine Editorial]</option>
                                                 <?php
-                                                
-                                                    foreach ($rs_edito as $edito){
-                                                
+                                                    foreach ($rs_edito as $data ){
                                                 ?>
-                                                    <option value="<?=$mar->codigo_marca?>"><?=$mar->marca?></option>
+                                                    <option value="<?=$data->id_editorial?>"><?=$data->nombre?></option>
 
                                                 <?php
                                                     }
@@ -78,15 +76,15 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
                                             </div>
                                             <div class="col-md-6">
                                                 <label for="cbo_categoria" class="form-label">Categoria</label>
-                                                <select class="form-select form-select-lg mb-3" id="txt_categoria" name="txt_categoria">
+                                                <select class="form-select form-select-lg mb-3" id="cbo_categoria" name="cbo_categoria">
                                                     <option value="" selected>[Seleccion Categoria]</option>
 
                                                 <?php
                                                 
-                                                    foreach ($rs_cat as $cat){
+                                                    foreach ($rs_cat as $dato){
                                                 
                                                 ?>
-                                                    <option value="<?=$cat->codigo_categoria?>"><?=$cat->categoria?></option>
+                                                    <option value="<?=$dato->id_categoria?>"><?=$dato->nombre_categoria?></option>
 
                                                 <?php
                                                     }
@@ -97,7 +95,7 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
 
 
                                         <div class="text-center">
-                                            <button type="submit" class="btn btn-outline-primary" id="btn_registrar_prod" name="btn_registrar_prod" >
+                                            <button type="submit" class="btn btn-outline-primary" id="btn_registrar_lib" name="btn_registrar_lib" >
                                                 <i class="fas fa-save"></i> Grabar Informacion
                                         
                                             </button>

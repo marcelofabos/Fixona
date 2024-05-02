@@ -91,10 +91,10 @@ class CRUDAutores extends Conexion
         try {
             $cn = $this->Conectar();
 
-            $sql = "call sp_RegistrarAutor(:id_autor, :nombre, :apellido, :nacionalidad)";
+            $sql = "call sp_RegistrarAutor(:nombre, :apellido, :nacionalidad, :id_autor)";
             $snt = $cn->prepare($sql);
 
-            $snt->bindParam(":id_libro", $autor->id_autor);
+            $snt->bindParam(":id_autor", $autor->id_autor);
             $snt->bindParam(":nombre", $autor->nombre);
             $snt->bindParam(":apellido", $autor->apellido);
             $snt->bindParam(":nacionalidad", $autor->nacionalidad);
@@ -113,7 +113,7 @@ class CRUDAutores extends Conexion
             $sql = "call sp_EditarAutor(:id_autor, :nombre, :apellido, :nacionalidad)";
             $snt = $cn->prepare($sql);
 
-            $snt->bindParam(":id_libro", $autor->id_autor);
+            $snt->bindParam(":id_autor", $autor->id_autor);
             $snt->bindParam(":nombre", $autor->nombre);
             $snt->bindParam(":apellido", $autor->apellido);
             $snt->bindParam(":nacionalidad", $autor->nacionalidad);

@@ -19,7 +19,7 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
     <div class="container mt-3">
         <header>
             <h1>
-                <i class="fas fa-list-alt"></i> Libros
+                <i class="fas fa-list-alt"></i> Autores
             </h1>
             <hr />
         </header>
@@ -94,7 +94,7 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
                     <div class="row justify-content-center">
                         <h5 class="card-title">¿Seguro de borrar el registro?</h5>
                         <p class="card-text">
-                            <span class="lbl_lib"></span> (<span class="lbl_id_lib"></span>)
+                            <span class="lbl_autor"></span> (<span class="lbl_id_autor"></span>)
                         </p>
                     </div>
                 </div>

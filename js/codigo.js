@@ -22,6 +22,10 @@ $(function () {
         let id_autores = $(this).closest(".reg_autores").children(".id_autores").text();
         location.href = "mostrar_autores.php?id_autores=" + id_autores;
     })
+    $(".reg_editoriales .btn_mostrar").click(function (e) {
+        let id_edit = $(this).closest(".reg_editoriales").children(".id_editoriales").text();
+        location.href = "mostrar_editoriales.php?id_editoriales=" + id_edit;
+    })
 
     $(".reg_producto .btn_editar").click(function (e) {
         let codprod = $(this).closest(".reg_producto").children(".codprod").text();
@@ -36,6 +40,21 @@ $(function () {
     $(".reg_categoria .btn_editar").click(function (e) {
         let id_cate = $(this).closest(".reg_categoria").children(".id_cate").text();
         location.href = "editar_categoria.php?id_cate=" + id_cate;
+    });
+
+    $(".reg_venta .btn_editar").click(function (e) {
+        let id_venta = $(this).closest(".reg_venta").children(".id_venta").text();
+        location.href = "editar_venta.php?id_venta=" + id_venta;
+    })
+
+    $(".reg_editoriales .btn_editar").click(function (e) {
+        let id_edit = $(this).closest(".reg_editoriales").children(".id_editoriales").text();
+        location.href = "editar_editoriales.php?id_editoriales=" + id_edit;
+    });
+
+    $(".reg_autores .btn_editar").click(function (e) {
+        let id_auto = $(this).closest(".reg_autores").children(".id_autores").text();
+        location.href = "editar_autores.php?id_autores=" + id_auto;
     });
 
     $(".reg_producto .btn_borrar").click(function (e) {
@@ -95,6 +114,24 @@ $(function () {
 
         $("#md_borrar").modal("show");
 
+    });
+
+    $(".reg_editoriales .btn_borrar").click(function (e) {
+        let id_edito = $(this).closest(".reg_editoriales").children(".id_editoriales").text();
+        let edito = $(this).closest(".reg_editoriales").children(".edito").text();
+        $("#md_borrar .lbl_id_edit").text(id_edito);
+        $("#md_borrar .lbl_edit").text(edito);
+        $("#md_borrar .btn_borrar").attr("href", "../controlador/ctr_borrar_edito.php?id_editoriales=" + id_edito);
+        $("#md_borrar").modal("show");
+    });
+
+    $(".reg_autores .btn_borrar").click(function (e) {
+        let id_autor = $(this).closest(".reg_autores").children(".id_autores").text();
+        let autor = $(this).closest(".reg_autores").children(".autores").text();
+        $("#md_borrar .lbl_id_autor").text(id_autor);
+        $("#md_borrar .lbl_autor").text(autor);
+        $("#md_borrar .btn_borrar").attr("href", "../controlador/ctr_borrar_auto.php?id_autores=" + id_autor);
+        $("#md_borrar").modal("show");
     });
 
     $(document).ready(function () {
@@ -270,6 +307,82 @@ $(function () {
     });
 
     $(document).ready(function () {
+        $("#frm_consultar_edit #txt_id_edito").focusout(function (e) {
+            e.preventDefault();
+            let id_edito = $(this).val();
+
+            if (id_edito != "") {
+                $.ajax({
+                    url: "../controlador/ctr_consultar_edito.php",
+                    type: "POST",
+                    data: { id_edito: id_edito },
+                    success: function (rpta) {
+                        let rp = JSON.parse(rpta);
+
+                        if (rp) {
+                            $(".id_editoriales").html(rp.id_editorial);
+                            $(".edito").html(rp.nombre);
+                            $(".pais").html(rp.pais);
+                        } else {
+
+                            $('#md_consulta_error .modal-header').addClass('bg-gradient')
+                            $("#md_consulta_error .modal-body").html('<p>El codigo <b>' + id_cate + '</b> no existe</p>');
+                            $("#md_consulta_error").modal('show');
+
+                            $("#txt_id_lib").val("");
+
+                            let vacio = "&nbsp;";
+
+                            $(".id_libro").html(vacio);
+                            $(".cate").html(vacio);
+                        }
+                    }
+                });
+            }
+
+        });
+    });
+
+    $(document).ready(function () {
+        $("#frm_consultar_auto #txt_id_auto").focusout(function (e) {
+            e.preventDefault();
+            let id_auto = $(this).val();
+
+            if (id_auto != "") {
+                $.ajax({
+                    url: "../controlador/ctr_consultar_auto.php",
+                    type: "POST",
+                    data: { id_auto: id_auto },
+                    success: function (rpta) {
+                        let rp = JSON.parse(rpta);
+
+                        if (rp) {
+                            $(".id_auto").html(rp.id_autor);
+                            $(".Nom").html(rp.nombre);
+                            $(".Apell").html(rp.apellido);
+                            $(".Nacion").html(rp.nacionalidad);
+                        } else {
+
+                            $('#md_consulta_error .modal-header').addClass('bg-gradient')
+                            $("#md_consulta_error .modal-body").html('<p>El codigo <b>' + id_cate + '</b> no existe</p>');
+                            $("#md_consulta_error").modal('show');
+
+                            $("#txt_id_lib").val("");
+
+                            let vacio = "&nbsp;";
+
+                            $(".id_libro").html(vacio);
+                            $(".cate").html(vacio);
+                        }
+                    }
+                });
+            }
+
+        });
+    });
+
+
+    $(document).ready(function () {
         $("#frm_filtrar_cate").submit(function (e) {
             e.preventDefault();
     
@@ -300,6 +413,45 @@ $(function () {
                 { valor: valor },
                 function (rpta) {
                         // Mostrar los resultados en el modal
+                    $("#result_filtra").html(rpta);
+                    $("#modalResultados").modal('show');
+                });
+            } else {
+                alert("?");
+                $("#txt_valor").focus();
+            }
+        });
+    });
+    $(document).ready(function () {
+        $("#frm_filtrar_Edito").submit(function (e) {
+            e.preventDefault();
+    
+            var valor = $("#txt_valor").val();
+    
+            if (valor != "") {
+                $.post("../controlador/ctr_filtrar_edito.php",
+                { valor: valor },
+                function (rpta) {
+                    $("#result_filtra").html(rpta);
+                    $("#modalResultados").modal('show');
+                });
+            } else {
+                alert("?");
+                $("#txt_valor").focus();
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $("#frm_filtrar_auto").submit(function (e) {
+            e.preventDefault();
+    
+            var valor = $("#txt_valor").val();
+    
+            if (valor != "") {
+                $.post("../controlador/ctr_filtrar_auto.php",
+                { valor: valor },
+                function (rpta) {
                     $("#result_filtra").html(rpta);
                     $("#modalResultados").modal('show');
                 });

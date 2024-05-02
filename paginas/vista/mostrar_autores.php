@@ -14,8 +14,8 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
     include("../includes/menu.php");
     include "../includes/cargar_clases.php";
 
-    if (isset($_GET["id_auto"])) {
-        $id_auto = $_GET["id_auto"];
+    if (isset($_GET["id_autores"])) {
+        $id_auto = $_GET["id_autores"];
         $crudautores = new CRUDAutores();
         $rs_auto = $crudautores->MostrarAutor($id_auto);
 

@@ -86,6 +86,32 @@ class CRUDLibro extends Conexion
 
         return $arr_lib;
     }
+    public function BuscarLibroporID($id_lib)
+    {
+
+        $arr_lib = null;
+
+        $cn = $this->Conectar();
+
+        $sql = "call SP_BuscarLibroporID(:id_lib);";
+
+        $snt = $cn->prepare($sql);
+
+        $snt->bindparam(":id_lib", $id_lib, PDO::PARAM_STR, 5);
+
+        $snt->execute();
+
+        $nr = $snt->rowCount();
+
+        if ($nr > 0) {
+            $arr_lib = $snt->fetch(PDO::FETCH_OBJ);
+        }
+
+        $cn = null;
+
+        return $arr_lib;
+    }
+
     //Registrar Producto
     public function RegistrarLibro(Libro $libro)
     {

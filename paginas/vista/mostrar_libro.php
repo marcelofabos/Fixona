@@ -29,7 +29,7 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
     <div class="container mt-3">
         <header>
             <h1 class="text-info">
-                <i class="fas fa-info-circle"></i> Información del Producto
+                <i class="fas fa-info-circle"></i> Información del Libro
             </h1>
             <hr />
         </header>

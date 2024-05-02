@@ -45,12 +45,12 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
                                     <div class="row g-3">
 
                                         <div class="col-md-4">
-                                            <label for="txt_codprod" class="form-label">Id</label>
-                                            <input type="text" class="form-control" id="txt_codprod" name="txt_codprod" placeholder="Id" maxlength="5" autofocus />
+                                            <label for="txt_id_categoria" class="form-label">Id</label>
+                                            <input type="text" class="form-control" id="txt_id_categoria" name="txt_id_categoria" placeholder="Id" maxlength="5" autofocus />
                                         </div>
                                         <div class="col-md-8">
-                                            <label for="txt_prod" class="form-label">Categoria</label>
-                                            <input type="text" class="form-control" id="txt_prod" name="txt_prod" placeholder="Nombre de la Categoria" maxlength="40" />
+                                            <label for="txt_nombre_categoria" class="form-label">Categoria</label>
+                                            <input type="text" class="form-control" id="txt_nombre_categoria" name="txt_nombre_categoria" placeholder="Nombre de la Categoria" maxlength="40" />
                                         </div>
                                         <div class="col-md-8">
                                     </div>

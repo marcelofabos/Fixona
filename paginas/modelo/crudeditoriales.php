@@ -91,10 +91,10 @@ class CRUDEditoriales extends Conexion
         try {
             $cn = $this->Conectar();
 
-            $sql = "call sp_RegistrarEditorial(:id_editorial, :nombre, :pais)";
+            $sql = "call sp_RegistrarEditorial(:nombre, :pais, :id_editorial)";
             $snt = $cn->prepare($sql);
 
-            $snt->bindParam(":id_libro", $editoriales->id_editorial);
+            $snt->bindParam(":id_editorial", $editoriales->id_editorial);
             $snt->bindParam(":nombre", $editoriales->nombre);
             $snt->bindParam(":pais", $editoriales->pais);
 
@@ -113,7 +113,7 @@ class CRUDEditoriales extends Conexion
             $sql = "call sp_EditarEditorial(:id_editorial, :nombre, :pais)";
             $snt = $cn->prepare($sql);
 
-            $snt->bindParam(":id_libro", $editoriales->id_editorial);
+            $snt->bindParam(":id_editorial", $editoriales->id_editorial);
             $snt->bindParam(":nombre", $editoriales->nombre);
             $snt->bindParam(":pais", $editoriales->pais);
 

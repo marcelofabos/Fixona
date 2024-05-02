@@ -86,13 +86,31 @@ class CRUDVenta extends Conexion
 
         return $arr_ven;
     }
+
+    public function BuscarVentaporID($id_venta)
+    {
+        $arr_ven = null;
+        $cn = $this->Conectar();
+        $sql = "call  SP_BuscarVentaporID(:id_venta);";
+        $snt = $cn->prepare($sql);
+        $snt->bindparam(":id_venta", $id_venta, PDO::PARAM_STR, 5);
+        $snt->execute();
+        $nr = $snt->rowCount();
+
+        if ($nr > 0) {
+            $arr_ven = $snt->fetch(PDO::FETCH_OBJ);
+        }
+        $cn = null;
+        return $arr_ven;
+    }
+
     //Registrar Producto
     public function RegistrarVenta(Venta $venta)
     {
         try {
             $cn = $this->Conectar();
 
-            $sql = "call SP_RegistrarVenta(:id_venta, :id_libro, :titulo, :fecha_venta, :cantidad_venta, :total)";
+            $sql = "call SP_RegistrarVenta(:id_venta, :id_libro, :fecha_venta, :cantidad_venta, :total)";
             $snt = $cn->prepare($sql);
 
             $snt->bindParam(":id_venta", $venta->id_venta);
@@ -112,7 +130,7 @@ class CRUDVenta extends Conexion
     {
         try {
             $cn = $this->Conectar();
-            $sql = "call SP_EditarVenta(:id_venta, :id_libro, :titulo, :fecha_venta, :cantidad_venta, :total)";
+            $sql = "call SP_EditarVenta(:id_venta, :id_libro, :fecha_venta, :cantidad_venta, :total)";
             $snt = $cn->prepare($sql);
 
             $snt->bindParam(":id_venta", $venta->id_venta);

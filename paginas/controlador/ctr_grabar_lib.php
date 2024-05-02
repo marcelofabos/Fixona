@@ -8,7 +8,7 @@ if (isset($_POST["btn_registrar_lib"])) {
 
     $libro->id_libro = $_POST["txt_id_libro"];
     $libro->titulo = $_POST["txt_titulo"];
-    $libro->autor = $_POST["cbo_autor"];
+    $libro->autor = $_POST["txt_autor"];
     $libro->editorial = $_POST["cbo_editorial"];
     $libro->categoria = $_POST["cbo_categoria"];
     $libro->precio = $_POST["txt_precio"];

@@ -19,13 +19,13 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
 
         $crudlibro = new CRUDLibro();
 
-        $rs_lib = $crudlibro->BuscarLibro($id_lib);
+        $rs_lib = $crudlibro->BuscarLibroporID($id_lib);
 
         if (!empty($rs_lib)) {
             $crudeditoriales = new CRUDEditoriales();
             $crudcategoria = new CRUDCategoria();
 
-            $rs_edito = $crudeditoriales->ListarEditoriales();
+            $rs_edito = $crudeditoriales->ListarEditorial();
             $rs_cat = $crudcategoria->ListarCategoria();
         } else {
             header("location: listar_producto.php");
@@ -36,7 +36,7 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
     ?>
     <div class="container mt-3">
         <header>
-            <h1 class="text-success"><i class="fas fa-pen-square"></i> Editar Producto</h1>
+            <h1 class="text-success"><i class="fas fa-pen-square"></i> Editar Libro</h1>
             <hr />
         </header>
 
@@ -52,38 +52,33 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-body">
-                                <form id="frm_editar_prod.php" name="frm_editar_prod" method="post" action="../controlador/ctr_grabar_prod.php" autocomplete="off">
+                                <form id="frm_editar_prod.php" name="frm_editar_prod" method="post" action="../controlador/ctr_grabar_lib.php" autocomplete="off">
                                     <input type="hidden" id="txt_tipo" name="txt_tipo" value="e" />
 
                                     <div class="row g-3">
                                         <div class="col-md-4">
-                                            <label for="txt_codprod" class="form-label">Id</label>
-                                            <input type="text" class="form-control" id="txt_codprod" name="txt_codprod" placeholder="Id" maxlength="5" readonly value="<?= $rs_lib->id_libro ?>">
+                                            <label for="txt_id_libro" class="form-label">Id</label>
+                                            <input type="text" class="form-control" id="txt_id_libro" name="txt_id_libro" placeholder="Id" maxlength="5" readonly value="<?= $rs_lib->id_libro ?>">
                                         </div>
 
                                         <div class="col-md-8">
-                                            <label for="txt_prod" class="form-label">Titulo</label>
-                                            <input type="text" class="form-control" id="txt_prod" name="txt_prod" placeholder="Titulo" maxlength="40" value="<?= $rs_lib->titulo ?>" />
+                                            <label for="txt_titulo" class="form-label">Titulo</label>
+                                            <input type="text" class="form-control" id="txt_titulo" name="txt_titulo" placeholder="Titulo" maxlength="40" value="<?= $rs_lib->titulo ?>" />
                                         </div>
 
                                         <div class="col-md-4">
-                                            <label for="txt_stk" class="form-label">Autor</label>
-                                            <input type="text" class="form-control" id="txt_stk" name="txt_stk" placeholder="Autor" maxlength="4" min="1" max="9999" value="<?= $rs_lib->autor ?>" />
+                                            <label for="txt_autor" class="form-label">Autor</label>
+                                            <input type="text" class="form-control" id="txt_autor" name="txt_autor" placeholder="Autor" maxlength="5" min="1" max="9999" value="<?= $rs_lib->autor ?>" />
                                         </div>
 
                                         <div class="col-md-4">
-                                            <label for="txt_cst" class="form-label">Nacionalidad</label>
-                                            <input type="text" class="form-control" id="txt_cst" name="txt_cst" placeholder="Nacionalidad" maxlength="8" value="<?= $rs_lib->nacionalidad ?>" />
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <label for="txt_gnc" class="form-label">Precio</label>
-                                            <input type="text" class="form-control" id="txt_gnc" name="txt_gnc" placeholder="Precio" min="1" max="100" step="0.01" value="<?= $rs_lib->precio ?>" />
+                                            <label for="txt_precio" class="form-label">Precio</label>
+                                            <input type="text" class="form-control" id="txt_precio" name="txt_precio" placeholder="Precio" min="1" max="100" step="0.01" value="<?= $rs_lib->precio ?>" />
                                         </div>
 
                                         <div class="col-md-6">
-                                            <label for="cbo_mar" class="form-label">Marca</label>
-                                            <select class="form-select form-select-lg mb-3" id="cbo_mar" name="cbo_mar">
+                                            <label for="cbo_editorial" class="form-label">Marca</label>
+                                            <select class="form-select form-select-lg mb-3" id="cbo_editorial" name="cbo_editorial">
                                                 <option value="">[Seleccione Editorial]</option>
                                                 <?php
                                                 foreach ($rs_edito as $edito) {
@@ -97,8 +92,8 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
                                         </div>
 
                                         <div class="col-md-6">
-                                            <label for="cbo_cat" class="form-label">Categoria</label>
-                                            <select class="form-select form-select-lg mb-3" id="cbo_cat" name="cbo_cat">
+                                            <label for="cbo_categoria" class="form-label">Categoria</label>
+                                            <select class="form-select form-select-lg mb-3" id="cbo_categoria" name="cbo_categoria">
                                                 <option value="">[Seleccione categoria]</option>
                                                 <?php
                                                 foreach ($rs_cat as $cat) {
@@ -113,7 +108,7 @@ background: linear-gradient(to right, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+
 
 
                                         <div class="text-center">
-                                            <button type="submit" class="btn btn-outline-primary" id="btn_registrar_prod" name="btn_registrar_prod">
+                                            <button type="submit" class="btn btn-outline-primary" id="btn_registrar_lib" name="btn_registrar_lib">
                                                 <i class="fas fa-save"></i> Actualizar Informacion
                                             </button>
                                         </div>

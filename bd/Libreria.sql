@@ -87,7 +87,6 @@ BEGIN
 END $$
 DELIMITER ;
 
-CALL SP_ListarCategoria();
 
 -- Mostrar categoría por código
 DELIMITER $$
@@ -98,19 +97,17 @@ BEGIN
 END $$
 DELIMITER ;
 
-CALL SP_MostrarCategoria('C0002');
 
 
 -- Registrar un nuevo registro
 DELIMITER $$
-CREATE PROCEDURE SP_RegistrarCategoria(IN nombre_nueva VARCHAR(50), IN id_categoria CHAR(5))
+CREATE PROCEDURE SP_RegistrarCategoria(IN id_categoria CHAR(5),IN nombre_nueva VARCHAR(50))
 BEGIN
     INSERT INTO Categorias (id_categoria, nombre_categoria)
     VALUES (id_categoria, nombre_nueva);
 END $$
 DELIMITER ;
 
-CALL SP_RegistrarCategoria('Thriller', 'C0003');
 
 -- Borrar la información de una categoría
 DELIMITER $$
@@ -121,7 +118,6 @@ BEGIN
 END$$
 DELIMITER ;
 
-CALL sp_BorrarCategoria('C0003');
 
 -- Editar Categoria
 DELIMITER $$
@@ -135,7 +131,6 @@ BEGIN
     WHERE id_categoria = id_cate;
 END$$
 DELIMITER ;
-CALL SP_EditarCategoria('C0001', 'Nueva Categoría');
 
 -- Filtrar Categoria
 DELIMITER $$
@@ -146,7 +141,6 @@ BEGIN
     WHERE nombre_categoria LIKE CONCAT('%', nombre_filtro, '%');
 END$$
 DELIMITER ;
-CALL SP_FiltrarCategoria('Nove');
 
 
 
@@ -165,7 +159,6 @@ BEGIN
 END $$
 DELIMITER ;
 
-CALL SP_ListarLibro();
 
 
 -- Mostrar Libro por ID
@@ -181,18 +174,16 @@ BEGIN
 END $$
 DELIMITER ;
 
-CALL SP_MostrarLibro('L0001');
 
 -- Registrar un nuevo Libro
 DELIMITER $$
-CREATE PROCEDURE SP_RegistrarLibro(IN titulo VARCHAR(100), IN autor CHAR(5), IN editorial CHAR(5), IN categoria CHAR(5), IN precio DECIMAL(10, 2), IN id_libro CHAR(5))
+CREATE PROCEDURE SP_RegistrarLibro(IN id_libro CHAR(5), IN cod_titulo VARCHAR(100), IN cod_autor CHAR(5), IN cod_editorial CHAR(5), IN cod_categoria CHAR(5), IN cod_precio DECIMAL(10, 2))
 BEGIN
-    INSERT INTO Libros (id_libro, titulo, autor, editorial, categoria, precio)
-    VALUES (id_libro, titulo, autor, editorial, categoria, precio);
+    INSERT INTO Libros 
+    VALUES (id_libro, cod_titulo, cod_autor, cod_editorial, cod_categoria, precio);
 END $$
 DELIMITER ;
 
-CALL SP_RegistrarLibro('Xess', 'A0002', 'E0001', 'C0001', 29.99, 'L0002');
 
 -- Borrar un Libro
 DELIMITER $$
@@ -201,7 +192,6 @@ BEGIN
     DELETE FROM Libros WHERE id_libro = id_lib;
 END $$
 DELIMITER ;
-CALL SP_BorrarLibro('L0003');
 
 -- Buscar Libro
 DELIMITER $$
@@ -215,7 +205,16 @@ BEGIN
     WHERE l.id_libro = id_lib;
 END $$
 DELIMITER ;
-CALL SP_BuscarLibro('L0001');
+
+DELIMITER $$
+CREATE PROCEDURE SP_BuscarLibroporID(IN id_lib CHAR(5))
+BEGIN
+    SELECT *
+    FROM Libros 
+    WHERE id_libro = id_lib;
+END $$
+DELIMITER ;
+
 
 -- Editar Libro
 
@@ -239,7 +238,6 @@ BEGIN
 END $$
 DELIMITER ;
 
-CALL SP_EditarLibro('L0001', 'Nuevo título', 'A0003', 'E0001', 'C0002', 24.99);
 
 -- Filtrar Libro
 
@@ -266,8 +264,6 @@ BEGIN
         l.titulo LIKE CONCAT('%', nombre_filtro, '%');
 END$$
 DELIMITER ;
-
-CALL SP_FiltrarLibro('s');
 
 
 -- LIBRO--------------------------------------------------
@@ -352,7 +348,6 @@ DELETE FROM Editoriales
 WHERE id_editorial = id_edit;
 END $$
 DELIMITER ;
-
 
 
 
@@ -459,7 +454,6 @@ ORDER BY v.id_venta ASC;
 END $$
 DELIMITER ;
 
-CALL SP_ListarVenta();
 
 -- Buscar venta
 DELIMITER $$
@@ -472,7 +466,14 @@ WHERE v.id_venta = id_venta_buscar;
 END $$
 DELIMITER ;
 
-CALL SP_BuscarVenta('V0001');
+DELIMITER $$
+CREATE PROCEDURE SP_BuscarVentaporID(IN id_venta_buscar CHAR(5))
+BEGIN
+SELECT *
+FROM Ventas 
+WHERE id_venta = id_venta_buscar;
+END $$
+DELIMITER ;
 
 -- Mostrar venta
 DELIMITER $$
@@ -488,7 +489,6 @@ WHERE v.id_venta = id_venta_buscar;
 END $$
 DELIMITER ;
 
-CALL SP_MostrarVenta('V0001');
 
 -- Filtrar  ventas
 DELIMITER $$
@@ -504,18 +504,15 @@ WHERE l.titulo LIKE CONCAT('%', nombre_libro, '%');
 END $$
 DELIMITER ;
 
-CALL SP_FiltrarVenta('q');
-
--- Registrar venta
+- Registrar venta
 DELIMITER $$
-CREATE PROCEDURE SP_RegistrarVenta(IN id_libro_venta CHAR(5), IN fecha_venta_nueva DATE, IN cantidad_vendida_nueva INT, IN total_nuevo DECIMAL(10, 2), IN id_venta_nueva CHAR(5))
+CREATE PROCEDURE SP_RegistrarVenta(IN id_venta_nueva CHAR(5), IN id_libro_venta CHAR(5), IN fecha_venta_nueva DATE, IN cantidad_vendida_nueva INT, IN total_nuevo DECIMAL(10, 2))
 BEGIN
 INSERT INTO Ventas (id_venta, id_libro, fecha_venta, cantidad_vendida, total)
 VALUES (id_venta_nueva, id_libro_venta, fecha_venta_nueva, cantidad_vendida_nueva, total_nuevo);
 END $$
 DELIMITER ;
 
-CALL SP_RegistrarVenta('L0002', '2023-04-22', 2, 31.98, 'V0002');
 
 -- Editar  venta
 DELIMITER $$
@@ -530,8 +527,6 @@ WHERE id_venta = id_venta_editar;
 END $$
 DELIMITER ;
 
-CALL SP_EditarVenta('V0003', 'L0002', '2023-04-21', 5, 74.95);
-
 -- Borrar venta
 DELIMITER $$
 CREATE PROCEDURE SP_BorrarVenta(IN id_venta_borrar CHAR(5))
@@ -540,4 +535,3 @@ DELETE FROM Ventas WHERE id_venta = id_venta_borrar;
 END $$
 DELIMITER ;
 
-CALL SP_BorrarVenta('V0003');
