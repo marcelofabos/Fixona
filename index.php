@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <?php
-
+$es;
 $ruta = ".";
 $titulo = "Aplicacion de Ventas";
 include("paginas/includes/cabecera.php");
